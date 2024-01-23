@@ -3,8 +3,9 @@
 import sys
 from setuptools import setup
 
-with open("README.md", "r", encoding="utf8") as readme_file:
-    readme = readme_file.read()
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup_requirements = [
     "setuptools_scm==3.5.0",
@@ -32,7 +33,8 @@ setup(
     use_scm_version=True,
     setup_requires=setup_requirements,
     description="Ampiato AmpData Python library.",
-    long_description=readme,
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author="Ampiato",
     author_email="info@ampiato.com",
     url="https://ampiato.com.com",
