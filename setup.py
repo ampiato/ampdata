@@ -18,7 +18,7 @@ install_requires = [
     "pytz",
     "pandas >= 0.21",
     "future >= 0.16",
-    "dateutil",
+    "python-dateutil",
 ]
 if sys.version_info < (3,):
     install_requires.append("configparser >= 3.5")
