@@ -627,8 +627,7 @@ class Session(object):
             raise MetadataException(
                 "Curve search failed: {}".format(response.content.decode())
             )
-        metadata_list = response.json()
-
+        metadata_list = response.json()["data"]
         result = []
         for metadata in metadata_list:
             result.append(self._build_curve(metadata))

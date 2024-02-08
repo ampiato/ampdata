@@ -4,6 +4,7 @@ import sys
 from setuptools import setup
 
 from pathlib import Path
+
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
@@ -17,6 +18,7 @@ install_requires = [
     "pytz",
     "pandas >= 0.21",
     "future >= 0.16",
+    "dateutil",
 ]
 if sys.version_info < (3,):
     install_requires.append("configparser >= 3.5")
@@ -34,7 +36,7 @@ setup(
     setup_requires=setup_requirements,
     description="Ampiato AmpData Python library.",
     long_description=long_description,
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
     author="Ampiato",
     author_email="info@ampiato.com",
     url="https://ampiato.com.com",
