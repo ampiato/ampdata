@@ -1,5 +1,8 @@
-from past.types import basestring
 import warnings
+
+import pandas as pd
+from dateutil.tz import tzlocal
+from past.types import basestring
 
 from . import util
 
@@ -9,6 +12,7 @@ class BaseCurve:
         self._metadata = metadata
         self._session = session
         self.time_zone = "CET"
+        self.local_time_zone = tzlocal()
         if metadata is None:
             self.hasMetadata = False
         else:
@@ -29,11 +33,22 @@ class BaseCurve:
             name = str(self.id)
         return "{}({})".format(curve_type, name)
 
+    def _format_date_str(self, date_any):
+        timestamp = pd.to_datetime(date_any)
+        if timestamp.tzinfo is None:
+            timestamp = timestamp.tz_localize(self.local_time_zone)
+        timestamp = timestamp.tz_convert("UTC")
+        return timestamp.strftime("%Y-%m-%dT%H:%M:%SZ")
+
     def _add_from_to(self, args, first, last, prefix=""):
         if first is not None:
-            args.append(util.make_arg("{}from".format(prefix), first))
+            args.append(
+                util.make_arg("{}from".format(prefix), self._format_date_str(first))
+            )
         if last is not None:
-            args.append(util.make_arg("{}to".format(prefix), last))
+            args.append(
+                util.make_arg("{}to".format(prefix), self._format_date_str(last))
+            )
 
     def _add_functions(
         self, args, time_zone, filter, function, frequency, output_time_zone

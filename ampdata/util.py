@@ -133,17 +133,21 @@ class TS(object):
         if name is None:
             name = self.fullname
         if self.points is None or len(self.points) == 0:
-            return pd.Series(name=name)
+            return pd.Series(name=name, dtype=float)
 
         index = []
         values = []
         for row in self.points:
             if len(row) != 2:
                 raise ValueError("Points have unexpected contents")
-            dt = datetime.datetime.fromtimestamp(row[0] / 1000.0, self.tz)
+            dt = datetime.datetime.fromtimestamp(row[0] / 1000.0, pytz.utc)
             index.append(dt)
             values.append(row[1])
-        res = pd.Series(name=name, index=index, data=values)
+        res = pd.Series(name=name, index=index, data=values, dtype=float)
+        if self.frequency == "d":
+            res.index = res.index.tz_localize(None).tz_localize(self.tz)
+        else:
+            res.index = res.index.tz_convert(self.tz)
         return res.asfreq(self._map_freq(self.frequency))
 
     @staticmethod
