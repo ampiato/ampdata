@@ -55,7 +55,7 @@ def test_minimal_config_file():
     config_file = os.path.join(os.path.dirname(__file__), "testconfig_minimal.ini")
     s = ampdata.Session(config_file=config_file)
     #
-    assert s.urlbase == "https://ampdata.lab.ampiato.com"
+    assert s.urlbase == "https://app.ampiato.com"
     assert s.auth is None
 
 

@@ -14,8 +14,8 @@ from .util import CurveException
 RETRY_COUNT = 4  # Number of times to retry
 RETRY_DELAY = 0.5  # Delay between retried calls, in seconds.
 TIMEOUT = 300  # Default timeout for web calls, in seconds.
-API_URLBASE = "https://ampdata.lab.ampiato.com"
-AUTH_URLBASE = "https://ampdata.lab.ampiato.com"
+API_URLBASE = "https://app.ampiato.com"
+AUTH_URLBASE = "https://app.ampiato.com"
 
 
 class ConfigException(Exception):
