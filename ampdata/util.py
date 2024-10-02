@@ -164,7 +164,7 @@ class TS(object):
         for i in pd_series.index:
             t = i.astimezone(pytz.utc)
             timestamp = int(calendar.timegm(t.timetuple()) * 1000)
-            points.append([timestamp, pd_series[i]])
+            points.append({"timestamp": timestamp, "value": pd_series[i]})
 
         if is_integer(name):
             return TS(id=int(name), frequency=frequency, points=points)
