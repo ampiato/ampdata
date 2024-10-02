@@ -140,10 +140,11 @@ class TS(object):
         for row in self.points:
             if len(row) != 2:
                 raise ValueError("Points have unexpected contents")
-            dt = datetime.datetime.fromtimestamp(row[0] / 1000.0, pytz.utc)
+            dt = datetime.datetime.fromtimestamp(row["timestamp"] / 1000.0, pytz.utc)
             index.append(dt)
-            values.append(row[1])
+            values.append(row["value"])
         res = pd.Series(name=name, index=index, data=values, dtype=float)
+        res.sort_index(inplace=True)
         if self.frequency == "d":
             res.index = res.index.tz_localize(None).tz_localize(self.tz)
         else:
@@ -163,7 +164,7 @@ class TS(object):
         for i in pd_series.index:
             t = i.astimezone(pytz.utc)
             timestamp = int(calendar.timegm(t.timetuple()) * 1000)
-            points.append([timestamp, pd_series[i]])
+            points.append({"timestamp": timestamp, "value": pd_series[i]})
 
         if is_integer(name):
             return TS(id=int(name), frequency=frequency, points=points)

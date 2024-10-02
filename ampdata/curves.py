@@ -78,7 +78,7 @@ class BaseCurve:
         )
 
     def access(self):
-        url = "/api/curves/{}/access".format(self.id)
+        url = "ampdata/api/curves/{}/access".format(self.id)
         return self._load_data(url, "Failed to load curve access")
 
 
@@ -170,7 +170,7 @@ class TimeSeriesCurve(BaseCurve):
         )
         if len(args) > 0:
             astr = "?{}".format("&".join(args))
-        url = "/api/series/{}{}".format(self.id, astr)
+        url = "ampdata/api/series/{}{}".format(self.id, astr)
         result = self._load_data(url, "Failed to load curve data")
         if result is None:
             return result
@@ -186,7 +186,7 @@ class TaggedCurve(BaseCurve):
         list
             Returns a list of all available tags for a Tagged Instance curve.
         """
-        url = "/api/series/tagged/{}/tags".format(self.id)
+        url = "ampdata/api/series/tagged/{}/tags".format(self.id)
         return self._load_data(url, "Failed to fetch tags")
 
     def get_data(
@@ -290,7 +290,7 @@ class TaggedCurve(BaseCurve):
             args, time_zone, filter, function, frequency, output_time_zone
         )
         astr = "&".join(args)
-        url = "/api/series/tagged/{}?{}".format(self.id, astr)
+        url = "ampdata/api/series/tagged/{}?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to load tagged curve data")
         if result is None:
             return result
@@ -456,7 +456,7 @@ class InstanceCurve(BaseCurve):
         if modified_since is not None:
             args.append(util.make_arg("modified_since", modified_since))
         astr = "&".join(args)
-        url = "/api/instances/{}?{}".format(self.id, astr)
+        url = "ampdata/api/instances/{}?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to find instances")
         if result is None:
             return result
@@ -568,7 +568,7 @@ class InstanceCurve(BaseCurve):
                 args, time_zone, filter, function, frequency, output_time_zone
             )
         astr = "&".join(args)
-        url = "/api/instances/{}/get?{}".format(self.id, astr)
+        url = "ampdata/api/instances/{}/get?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to load instance")
         if result is None:
             return result
@@ -697,7 +697,7 @@ class InstanceCurve(BaseCurve):
         if issue_dates is not None:
             args.append(util.make_arg("issue_date", issue_dates))
         astr = "&".join(args)
-        url = "/api/instances/{}/latest?{}".format(self.id, astr)
+        url = "ampdata/api/instances/{}/latest?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to load instance")
         if result is None:
             return result
@@ -848,7 +848,7 @@ class InstanceCurve(BaseCurve):
         if issue_times is not None:
             args.append(util.make_arg("issue_time", issue_times))
         astr = "&".join(args)
-        url = "/api/instances/{}/relative?{}".format(self.id, astr)
+        url = "ampdata/api/instances/{}/relative?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to find instances")
         if result is None:
             return result
@@ -902,7 +902,7 @@ class InstanceCurve(BaseCurve):
             args.append(util.make_arg("issue_frequency", issue_frequency))
         self._add_from_to(args, issue_date_from, issue_date_to, prefix="issue_date_")
         astr = "&".join(args)
-        url = "/api/instances/{}/absolute?{}".format(self.id, astr)
+        url = "ampdata/api/instances/{}/absolute?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to find instances")
         if result is None:
             return result
@@ -918,7 +918,7 @@ class TaggedInstanceCurve(BaseCurve):
         list
             Returns a list of all available tags for a Tagged Instance curve.
         """
-        url = "/api/instances/tagged/{}/tags".format(self.id)
+        url = "ampdata/api/instances/tagged/{}/tags".format(self.id)
         return self._load_data(url, "Failed to fetch tags")
 
     def search_instances(
@@ -1089,7 +1089,7 @@ class TaggedInstanceCurve(BaseCurve):
         if modified_since is not None:
             args.append(util.make_arg("modified_since", modified_since))
         astr = "&".join(args)
-        url = "/api/instances/tagged/{}?{}".format(self.id, astr)
+        url = "ampdata/api/instances/tagged/{}?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to find tagged instances")
         if result is None:
             return result
@@ -1220,7 +1220,7 @@ class TaggedInstanceCurve(BaseCurve):
                 args, time_zone, filter, function, frequency, output_time_zone
             )
         astr = "&".join(args)
-        url = "/api/instances/tagged/{}/get?{}".format(self.id, astr)
+        url = "ampdata/api/instances/tagged/{}/get?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to load tagged instance")
         if result is None:
             return result
@@ -1374,7 +1374,7 @@ class TaggedInstanceCurve(BaseCurve):
         if issue_dates is not None:
             args.append(util.make_arg("issue_date", issue_dates))
         astr = "&".join(args)
-        url = "/api/instances/tagged/{}/latest?{}".format(self.id, astr)
+        url = "ampdata/api/instances/tagged/{}/latest?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to load tagged instance")
         if result is None:
             return result
@@ -1531,7 +1531,7 @@ class TaggedInstanceCurve(BaseCurve):
         if issue_times is not None:
             args.append(util.make_arg("issue_time", issue_times))
         astr = "&".join(args)
-        url = "/api/instances/tagged/{}/relative?{}".format(self.id, astr)
+        url = "ampdata/api/instances/tagged/{}/relative?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to find instances")
         if result is None:
             return result
@@ -1595,7 +1595,7 @@ class TaggedInstanceCurve(BaseCurve):
             args.append(util.make_arg("tag", tag))
         self._add_from_to(args, issue_date_from, issue_date_to, prefix="issue_date_")
         astr = "&".join(args)
-        url = "/api/instances/tagged/{}/absolute?{}".format(self.id, astr)
+        url = "ampdata/api/instances/tagged/{}/absolute?{}".format(self.id, astr)
         result = self._load_data(url, "Failed to find instances")
         if result is None:
             return result

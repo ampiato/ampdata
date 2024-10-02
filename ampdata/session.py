@@ -174,7 +174,7 @@ class Session(object):
         else:
             arg = util.make_arg("name", name)
         response = self.data_request(
-            "GET", self.urlbase, "/api/curves/get?{}".format(arg)
+            "GET", self.urlbase, "ampdata/api/curves/get?{}".format(arg)
         )
         return self.handle_single_curve_response(response)
 
@@ -342,7 +342,9 @@ class Session(object):
         if len(args):
             astr = "?{}".format("&".join(args))
         # Now run the search, and try to produce a list of curves
-        response = self.data_request("GET", self.urlbase, "/api/curves{}".format(astr))
+        response = self.data_request(
+            "GET", self.urlbase, "ampdata/api/curves{}".format(astr)
+        )
         return self.handle_multi_curve_response(response)
 
     def make_curve(self, id, curve_type):
@@ -470,7 +472,9 @@ class Session(object):
         """Get valid values for an attribute."""
         if attribute not in self._attributes:
             raise MetadataException("Attribute {} is not valid".format(attribute))
-        response = self.data_request("GET", self.urlbase, "/api/{}".format(attribute))
+        response = self.data_request(
+            "GET", self.urlbase, "ampdata/api/{}".format(attribute)
+        )
         if response.status_code == 200:
             return response.json()
         elif response.status_code == 204:
