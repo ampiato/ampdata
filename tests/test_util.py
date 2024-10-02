@@ -6,7 +6,12 @@ from ampdata.util import TS
 
 @pytest.fixture
 def ts1():
-    points = [[0, 80], [2678400000, 90], [5097600000, 70], [7776000000, 120]]
+    points = [
+        {"timestamp": 0, "value": 80},
+        {"timestamp": 2678400000, "value": 90},
+        {"timestamp": 5097600000, "value": 70},
+        {"timestamp": 7776000000, "value": 120},
+    ]
     return TS(
         id=1,
         name="This is a Name",
@@ -19,7 +24,12 @@ def ts1():
 
 @pytest.fixture
 def ts2():
-    points = [[0, 120], [2678400000, 210], [5097600000, 330], [7776000000, 380]]
+    points = [
+        {"timestamp": 0, "value": 120},
+        {"timestamp": 2678400000, "value": 210},
+        {"timestamp": 5097600000, "value": 330},
+        {"timestamp": 7776000000, "value": 380},
+    ]
     return TS(
         id=2,
         name="This is another Name",
@@ -32,7 +42,12 @@ def ts2():
 
 @pytest.fixture
 def ts3():
-    points = [[0, 220], [2678400000, 120], [5097600000, 140], [7776000000, 580]]
+    points = [
+        {"timestamp": 0, "value": 220},
+        {"timestamp": 2678400000, "value": 120},
+        {"timestamp": 5097600000, "value": 140},
+        {"timestamp": 7776000000, "value": 580},
+    ]
     return TS(
         id=3,
         name="This is a third Name",
@@ -61,7 +76,12 @@ def test_from_pandas(ts1):
 
 
 def test_sum_ts(ts1, ts2, ts3):
-    points = [[0, 420], [2678400000, 420], [5097600000, 540], [7776000000, 1080]]
+    points = [
+        {"timestamp": 0, "value": 420},
+        {"timestamp": 2678400000, "value": 420},
+        {"timestamp": 5097600000, "value": 540},
+        {"timestamp": 7776000000, "value": 1080},
+    ]
     sum_name = "Summed Series"
     summed = TS.sum([ts1, ts2, ts3], sum_name)
 
@@ -75,7 +95,12 @@ def test_sum_ts(ts1, ts2, ts3):
 
 
 def test_mean_ts(ts1, ts2, ts3):
-    points = [[0, 140.0], [2678400000, 140], [5097600000, 180], [7776000000, 360]]
+    points = [
+        {"timestamp": 0, "value": 140.0},
+        {"timestamp": 2678400000, "value": 140},
+        {"timestamp": 5097600000, "value": 180},
+        {"timestamp": 7776000000, "value": 360},
+    ]
     mean_name = "Mean Series"
     summed = TS.mean([ts1, ts2, ts3], mean_name)
 
@@ -89,7 +114,12 @@ def test_mean_ts(ts1, ts2, ts3):
 
 
 def test_median_ts(ts1, ts2, ts3):
-    points = [[0, 120.0], [2678400000, 120], [5097600000, 140], [7776000000, 380]]
+    points = [
+        {"timestamp": 0, "value": 120.0},
+        {"timestamp": 2678400000, "value": 120},
+        {"timestamp": 5097600000, "value": 140},
+        {"timestamp": 7776000000, "value": 380},
+    ]
     median_name = "Median Series"
     summed = TS.median([ts1, ts2, ts3], median_name)
 
